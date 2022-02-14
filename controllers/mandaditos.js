@@ -30,6 +30,10 @@ const mandaditosGet = async (req, res = response) => {
             console.log(res);
         });
 
+        res.json({
+            msg: 'TODO OK'
+        })
+
     } catch (error) {
         res.send(error)
     }
