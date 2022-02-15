@@ -26,11 +26,13 @@ const mandaditosGet = async (req, res = response) => {
         
             const pool = await getConnection();
 
-            const result = pool.execute("Select * from mandaditos;")
+            const [rows, fields] = pool.execute("Select * from mandaditos;")
 
-            console.log(result);
+            console.log(rows);
 
-            res.json(result)
+            res.json({
+                rows
+            })
 
     } catch (error) {
         res.send(error)
