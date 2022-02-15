@@ -1,4 +1,5 @@
 const { response } = require('express');
+const { getConnection } = require('../database/connection');
 const { SSHConnection } = require('../database/dbConnection');
 const { queries } = require('../helpers/queries');
 
@@ -7,7 +8,7 @@ const mandaditosGet = async (req, res = response) => {
     try {
         const query = queries.getMandaditos;
 
-        SSHConnection()
+        /*SSHConnection()
             .then(con => {
                 con.execute(query, function(err, results, fields){
 
@@ -21,8 +22,15 @@ const mandaditosGet = async (req, res = response) => {
             })
             .catch(err => {
                 res.send(err);
-            });
-            
+            })*/
+        
+            const pool = await getConnection();
+
+            const result = pool.query("Select * from mandaditos;")
+
+            console.log(result);
+
+            res.json(result)
 
     } catch (error) {
         res.send(error)
