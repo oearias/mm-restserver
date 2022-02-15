@@ -26,7 +26,9 @@ const mandaditosGet = async (req, res = response) => {
         
             const pool = await getConnection();
 
-            const [rows, fields] = pool.execute("SELECT * from mandaditos");
+            const promisePool = pool.promise();
+
+            const [rows, fields] = await promisePool.query(query);
 
             console.log(rows);
 
