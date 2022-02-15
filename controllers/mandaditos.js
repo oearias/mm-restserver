@@ -26,7 +26,7 @@ const mandaditosGet = async (req, res = response) => {
         
             const pool = await getConnection();
 
-            const result = pool.query("Select * from mandaditos;")
+            const result = pool.execute("Select * from mandaditos;")
 
             console.log(result);
 
