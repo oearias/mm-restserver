@@ -99,8 +99,11 @@ const mandaditoPost = async (req, res = response) => {
         });
 
     } catch (error) {
-        console.log(error['code']);
-        console.log(error['errno']);
+
+        if(error['errno'] == 1062){
+            error = 'El email ingresado ya se encuentra en uso'
+        }
+
         res.send(error)
     }
 }
