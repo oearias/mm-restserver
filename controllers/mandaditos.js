@@ -59,11 +59,12 @@ const mandaditoPost = async (req, res = response) => {
         } = req.body;
 
         // Valido datos
-        if ((email == null) || (password == null) || (nombre == null)
-            || (apellido_paterno == null) 
-            || (telefono == null) || (nombre_mandadito == null)
-            || (estado == null) || (municipio == null) || (localidad == null)
-        ) {
+        if (
+            (!nombre) || (!apellido_paterno) || 
+            (!email) || (!password) ||
+            (!telefono) || (!nombre_mandadito) ||
+            (!estado) || (!municipio) || (!localidad)
+        ){
             return res.json({
                 msg: 'Por favor complete todos los datos'
             });
@@ -98,7 +99,6 @@ const mandaditoPost = async (req, res = response) => {
         });
 
     } catch (error) {
-        console.log("Llegamos hasta aquí");
         res.send(error)
     }
 }
