@@ -28,9 +28,11 @@ const mandaditosGet = async (req, res = response) => {
 
 const mandaditoGet = async (req, res = response) => {
 
-    const { id } = req.params;
+    
 
     try {
+
+        const { id } = req.params;
         
         const pool = await getConnection();
 
@@ -51,14 +53,44 @@ const mandaditoGet = async (req, res = response) => {
 
 const mandaditoPost = async (req, res = response) => {
 
-    const { nombre, apellido } = req.body;
+    const { nombre, 
+        apellido_paterno, 
+        apellido_materno, 
+        telefono,
+        nombre_mandadito,
+        email, password, 
+        estado, municipio,
+        localidad
+    } = req.body;
 
     console.log(req.body);
 
+    const estatus = 0;
+    const disponibilidad = 0;
+    const fecha_creacion = new Date();
+
+    const pool = await getConnection();
+
+    const promisePool = pool.promise();
+
+    const resp = await promisePool
+                            .query(queries.insertMandadito, [
+                                nombre,
+                                apellido_paterno, apellido_materno,
+                                telefono,
+                                email, password,
+                                nombre_mandadito,
+                                estatus, disponibilidad,
+                                estado, municipio, localidad,
+                                fecha_creacion
+                            ]);
+
+    console.log(resp);
+
+
     res.json({
         msg: 'Crear Mandadito POST',
-        nombre,
-        apellido
+        nombre
     })
 }
 
