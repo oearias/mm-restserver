@@ -3,8 +3,15 @@
 
 const queries = {
     getMandaditos: 'SELECT nombre, apellido_paterno, apellido_materno, '+
+    'nombre_mandadito, '+
     'telefono, email '+
-    'FROM mandaditos;'
+    'FROM mandaditos;',
+
+    getMandadito: 'SELECT nombre, apellido_paterno, apellido_materno, '+
+    'nombre_mandadito, '+
+    'telefono, email '+
+    'FROM mandaditos '+
+    'WHERE id= ? ;',
 }
 
 module.exports = {

@@ -6,35 +6,18 @@ const { queries } = require('../helpers/queries');
 const mandaditosGet = async (req, res = response) => {
 
     try {
+
         const query = queries.getMandaditos;
-
-        /*SSHConnection()
-            .then(con => {
-                con.execute(query, function(err, results, fields){
-
-                    (err)
-                    ? res.status(500).send('Por favor contacte a su administrador')
-                    : res.json({
-                        results
-                    });
-
-                });
-            })
-            .catch(err => {
-                res.send(err);
-            })*/
         
-            const pool = await getConnection();
+        const pool = await getConnection();
 
-            const promisePool = pool.promise();
+        const promisePool = pool.promise();
 
-            const [rows, fields] = await promisePool.query(query);
+        const [rows, fields] = await promisePool.query(query);
 
-            console.log(rows);
-
-            res.json({
-                rows
-            })
+        res.json({
+            rows
+        });
 
     } catch (error) {
         res.send(error)
@@ -47,10 +30,22 @@ const mandaditoGet = async (req, res = response) => {
 
     const { id } = req.params;
 
-    res.json({
-        id
-    })
-    
+    try {
+        
+        const pool = await getConnection();
+
+        const promisePool = pool.promise();
+
+        const [rows] = await promisePool
+                                .query(queries.getMandadito, [id]);
+
+        res.json({
+            rows
+        });
+
+    } catch (error) {
+        res.send(error)
+    }
     
 }
 
@@ -96,3 +91,30 @@ module.exports = {
     mandaditoPut,
     mandaditoDelete
 }
+
+
+
+
+
+
+
+
+
+
+//Esto va en el controller activando el firewall en SSH
+
+/*SSHConnection()
+            .then(con => {
+                con.execute(query, function(err, results, fields){
+
+                    (err)
+                    ? res.status(500).send('Por favor contacte a su administrador')
+                    : res.json({
+                        results
+                    });
+
+                });
+            })
+            .catch(err => {
+                res.send(err);
+            })*/
