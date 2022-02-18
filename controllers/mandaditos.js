@@ -99,6 +99,8 @@ const mandaditoPost = async (req, res = response) => {
         });
 
     } catch (error) {
+        console.log(error['code']);
+        console.log(error['errno']);
         res.send(error)
     }
 }
