@@ -14,7 +14,7 @@ const queries = {
     'WHERE id= ? ;',
 
     insertMandadito: 'INSERT INTO mandaditos (nombre, apellido_paterno, '+
-        'apellido_materno,telefono, email, '+
+        'apellido_materno, telefono, email, '+
         'password, nombre_mandadito, estatus, disponibilidad, '+
         'estado, municipio, localidad, fecha_creacion) '+
         'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);'

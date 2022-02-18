@@ -25,14 +25,11 @@ const mandaditosGet = async (req, res = response) => {
 
 const mandaditoGet = async (req, res = response) => {
 
-    
-
     try {
 
         const { id } = req.params;
         
         const pool = await getConnection();
-
         const promisePool = pool.promise();
 
         const [rows] = await promisePool
