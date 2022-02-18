@@ -1,6 +1,6 @@
 const { response } = require('express');
 const { getConnection } = require('../database/connection');
-const bcryptjs = require(bcryptjs);
+const bcryptjs = require('bcryptjs');
 const { queries } = require('../helpers/queries');
 
 const mandaditosGet = async (req, res = response) => {
