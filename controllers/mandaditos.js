@@ -66,7 +66,7 @@ const mandaditoPost = async (req, res = response) => {
         ) {
             return res.json({
                 msg: 'Por favor complete todos los datos'
-            })
+            });
         }
 
         //Encriptar password
