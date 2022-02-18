@@ -81,7 +81,7 @@ const mandaditoPost = async (req, res = response) => {
         const pool = await getConnection();
         const promisePool = pool.promise();
     
-        const resp = await promisePool
+        await promisePool
             .query(queries.insertMandadito, [
                 nombre,
                 apellido_paterno, apellido_materno,
@@ -92,14 +92,13 @@ const mandaditoPost = async (req, res = response) => {
                 estado, municipio, localidad,
                 fecha_creacion
             ]);
-
-            console.log(resp);
     
         res.json({
             msg: 'Usuario creado correctamente',
         });
 
     } catch (error) {
+        console.log("Llegamos hasta aquí");
         res.send(error)
     }
 }
