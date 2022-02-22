@@ -11,8 +11,12 @@ const dbServer = {
     port: process.env.DB_PORT,
     user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+    database: process.env.DB_DATABASE,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 }
+
 const tunnelConfig = {
     host: process.env.DB_SSH_HOST,
     port: 22,
@@ -27,7 +31,7 @@ const forwardConfig = {
     dstPort: dbServer.port
 };
 
-const SSHConnection = () => {
+const getSSHConnection = () => {
 
     return new Promise((resolve, reject) => {
         sshClient.on('ready', () => {
@@ -44,23 +48,12 @@ const SSHConnection = () => {
                     ...dbServer,
                     stream
                 };
-                // connect to mysql
-                const connection =  mysql.createConnection(updatedDbServer);
-                // check for successful connection
-            //  resolve or reject the Promise accordingly          
-            connection.connect((error) => {
-                if (error) {
-                    reject(error);
-                }
-
-                //connection.execute(query, function(err, results, fields){
-                  //  if(!err)
-                    //console.log('results');
-                //});
-
-                resolve(connection);
                 
-            });
+                // connect to mysql
+                const connection =  mysql.createPool(updatedDbServer);
+                
+                resolve(connection);
+
         });
         }).connect(tunnelConfig);
     });
@@ -68,5 +61,5 @@ const SSHConnection = () => {
 }
 
 module.exports = {
-    SSHConnection
+    getSSHConnection
 }

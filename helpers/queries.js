@@ -14,22 +14,22 @@ const queries = {
     'WHERE id= ? ;',
 
     insertMandadito: 'INSERT INTO mandaditos (nombre, apellido_paterno, '+
-        'apellido_materno, telefono, email, '+
-        'password, nombre_mandadito, estatus, disponibilidad, '+
-        'estado, municipio, localidad, fecha_creacion) '+
-        'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);'
+    'apellido_materno, telefono, email, '+
+    'password, nombre_mandadito, estatus, disponibilidad, '+
+    'estado, municipio, localidad, fecha_creacion) '+
+    'VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);',
+
+    updateMandadito: 'UPDATE mandaditos SET nombre = ?, '+
+    'apellido_paterno = ?, apellido_materno = ?, '+
+    'telefono = ?, email = ?, nombre_mandadito = ?, '+
+    'disponibilidad = ?, estado = ?, municipio = ?, localidad = ? '+
+    'WHERE id = ? ;',
+
+    deleteMandadito: 'DELETE FROM mandaditos where id = ? ;'
+
+
 }
 
 module.exports = {
     queries
 }
-
-/**
- * 
- * ,
-    insertMandadito: "INSERT INTO mandaditos (nombre, apellido_paterno, "+ 
-    'apellido_materno, telefono, email, password, nombre_mandadito, estatus, disponibilidad, '+
-    'estado, municipio, localidad, fecha_creacion) '+ 
-    "VALUES (null,'Oscar Enrique', 'Arias', ''Rodriguez) "+
-    "'9381522998','oscar.enrique.arias@gmail.com','123456','El Partner',null,1,1,'Campeche','Carmen','Carmen','2022-02-14',null);"
- */
