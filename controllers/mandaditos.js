@@ -2,20 +2,21 @@ const { response } = require('express');
 const { getConnection } = require('../database/connection');
 const bcryptjs = require('bcryptjs');
 const { queries } = require('../helpers/queries');
-const { getSSHConnection } = require('../database/dbConnection');
+//const { getSSHConnection } = require('../database/dbConnection');
 
 const mandaditosGet = async (req, res = response) => {
 
     try {
 
         //Consultas Remotas
+        /*
         const promisePool = await getSSHConnection().then( 
             (pool) => pool.promise()
-        ).catch(err => console.log(err));
+        ).catch(err => console.log(err));*/
 
         //Esto corre en el Server sin SSH
-        //const pool = await getConnection();
-        //const promisePool = pool.promise();
+        const pool = await getConnection();
+        const promisePool = pool.promise();
         
         const [rows] = await promisePool.query(queries.getMandaditos);
 
@@ -123,10 +124,9 @@ const mandaditoPut = async (req, res = response) => {
             estado, municipio, localidad
         } = req.body;
 
-        //Consultas Remotas
-        const promisePool = await getSSHConnection().then( 
-            (pool) => pool.promise()
-        ).catch(err => console.log(err));
+        //Esto corre en el Server sin SSH
+        const pool = await getConnection();
+        const promisePool = pool.promise();
 
         const result = await promisePool.query(queries.updateMandadito, [
             nombre, apellido_paterno, apellido_materno,
@@ -158,10 +158,9 @@ const mandaditoDelete = async (req, res = response) => {
 
         const { id } = req.params;
 
-        //Consultas Remotas
-        const promisePool = await getSSHConnection().then( 
-            (pool) => pool.promise()
-        ).catch(err => console.log(err));
+        //Esto corre en el Server sin SSH
+        const pool = await getConnection();
+        const promisePool = pool.promise();
 
         const result = await promisePool.query(queries.deleteMandadito, [id]);
 
